@@ -1,0 +1,145 @@
+
+.createPost-layout {
+    max-width: 800px;
+    margin: 40px auto;
+    padding: 40px;
+    background-color: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.08);
+    font-family: Arial, sans-serif;
+}
+
+
+.createPost-heading {
+    font-size: 28px;
+    margin-bottom: 30px;
+    color: #1b2954;
+}
+
+
+.createPost-form .form-row {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 24px;
+}
+
+.field-caption {
+    font-weight: bold;
+    margin-bottom: 6px;
+    font-size: 14px;
+    color: #333;
+}
+
+
+.createPost-form .form-input,
+.createPost-form .form-textarea,
+.createPost-form .form-select,
+.createPost-form .form-file {
+    width: 100%;
+    padding: 12px 14px;
+    font-size: 16px;
+    border-radius: 10px;
+    border: 2px solid #d3d3d3;
+    background-color: #ffffff;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+    font-family: inherit;
+    box-sizing: border-box;
+}
+
+
+.createPost-form .form-textarea {
+    resize: vertical;
+    min-height: 140px;
+}
+
+
+.createPost-form .form-select {
+    cursor: pointer;
+}
+
+
+.createPost-form .form-file {
+    padding: 8px 10px;
+}
+
+
+.createPost-form .form-input::placeholder,
+.createPost-form .form-textarea::placeholder {
+    color: #999999;
+}
+
+
+.createPost-form .form-input:focus,
+.createPost-form .form-textarea:focus,
+.createPost-form .form-select:focus {
+    outline: none;
+    border-color: #f5821f;
+    box-shadow: 0 0 0 3px rgba(245, 130, 31, 0.3);
+    background-color: #fffdf8;
+}
+
+
+.form-row-inline {
+    max-width: 260px;
+}
+
+
+.form-actions {
+    margin-top: 20px;
+}
+
+.btn-create-post {
+    background-color: #f5821f;
+    color: #ffffff;
+    border: none;
+    border-radius: 8px;
+    padding: 10px 26px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.btn-create-post:hover {
+    background-color: #d96f18;
+}
+
+
+.createPost-subheading {
+    font-size: 16px;
+    margin-bottom: 20px;
+    color: #666;
+}
+
+#start-tour-btn {
+    background-color: #1b2954;
+    color: #ffffff;
+    border: none;
+    border-radius: 8px;
+    padding: 10px 26px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-bottom: 20px;
+}
+
+#start-tour-btn:hover {
+    background-color: #2c4281;
+}
+
+@media (max-width: 600px) {
+    .createPost-layout {
+        margin: 20px;
+        padding: 24px;
+    }
+
+    .createPost-heading {
+        font-size: 24px;
+        margin-bottom: 20px;
+    }
+
+    .form-row-inline {
+        max-width: 100%;
+    }
+}
+
+

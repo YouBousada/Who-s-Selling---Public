@@ -1,0 +1,121 @@
+Index: README.md
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>[![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-22041afd0340ce965d47ae6ef1cefeee28c7c493a6346c4f15d667ab976d596c.svg)](https://classroom.github.com/a/k4pNZww7)\n\n\n## Setup\n1. Create virtual environment using ```python -m venv .venv``` \n2. Activate virtual environment using ```source .venv/bin/activate``` (if on Windows us ```.venv\\Scripts\\activate```)\n3. Run the command ```pip install -r requirements.txt``` to install dependencies\n\n## Running project \n1. Ensure virtual environment is always running using ```source .venv/bin/activate```. Virtual environment can be closed using ```deactivate```\n2. Run the command ```python manage.py runserver```\n3. Go to the local port http://127.0.0.1:8000/, might be different for you
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/README.md b/README.md
+--- a/README.md	(revision d5b4d2f0ed369ae5ab8c538857606a5496ce3f34)
++++ b/README.md	(date 1760565424062)
+@@ -2,7 +2,7 @@
+ 
+ 
+ ## Setup
+-1. Create virtual environment using ```python -m venv .venv``` 
++1. Create virtual environment using ```python3 -m venv .venv``` 
+ 2. Activate virtual environment using ```source .venv/bin/activate``` (if on Windows us ```.venv\Scripts\activate```)
+ 3. Run the command ```pip install -r requirements.txt``` to install dependencies
+ 
+Index: .idea/modules.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/modules.xml b/.idea/modules.xml
+new file mode 100644
+--- /dev/null	(date 1760565424071)
++++ b/.idea/modules.xml	(date 1760565424071)
+@@ -0,0 +1,8 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<project version="4">
++  <component name="ProjectModuleManager">
++    <modules>
++      <module fileurl="file://$PROJECT_DIR$/.idea/project-b-22.iml" filepath="$PROJECT_DIR$/.idea/project-b-22.iml" />
++    </modules>
++  </component>
++</project>
+\ No newline at end of file
+Index: .idea/vcs.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/vcs.xml b/.idea/vcs.xml
+new file mode 100644
+--- /dev/null	(date 1760565424074)
++++ b/.idea/vcs.xml	(date 1760565424074)
+@@ -0,0 +1,6 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<project version="4">
++  <component name="VcsDirectoryMappings">
++    <mapping directory="" vcs="Git" />
++  </component>
++</project>
+\ No newline at end of file
+Index: .idea/misc.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/misc.xml b/.idea/misc.xml
+new file mode 100644
+--- /dev/null	(date 1760565424079)
++++ b/.idea/misc.xml	(date 1760565424079)
+@@ -0,0 +1,9 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<project version="4">
++  <component name="Black">
++    <option name="sdkName" value="Python 3.11 (pa2)" />
++  </component>
++  <component name="ProjectRootManager" version="2" languageLevel="JDK_20" project-jdk-name="22" project-jdk-type="JavaSDK">
++    <output url="file://$PROJECT_DIR$/out" />
++  </component>
++</project>
+\ No newline at end of file
+Index: .idea/.gitignore
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/.gitignore b/.idea/.gitignore
+new file mode 100644
+--- /dev/null	(date 1760565424083)
++++ b/.idea/.gitignore	(date 1760565424083)
+@@ -0,0 +1,8 @@
++# Default ignored files
++/shelf/
++/workspace.xml
++# Editor-based HTTP Client requests
++/httpRequests/
++# Datasource local storage ignored files
++/dataSources/
++/dataSources.local.xml
+Index: .idea/project-b-22.iml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/project-b-22.iml b/.idea/project-b-22.iml
+new file mode 100644
+--- /dev/null	(date 1760565424068)
++++ b/.idea/project-b-22.iml	(date 1760565424068)
+@@ -0,0 +1,17 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<module type="JAVA_MODULE" version="4">
++  <component name="NewModuleRootManager" inherit-compiler-output="true">
++    <exclude-output />
++    <content url="file://$MODULE_DIR$" />
++    <orderEntry type="jdk" jdkName="Python 3.11 (pa2)" jdkType="Python SDK" />
++    <orderEntry type="sourceFolder" forTests="false" />
++  </component>
++  <component name="TemplatesService">
++    <option name="TEMPLATE_CONFIGURATION" value="Jinja2" />
++    <option name="TEMPLATE_FOLDERS">
++      <list>
++        <option value="$MODULE_DIR$/login/templates" />
++      </list>
++    </option>
++  </component>
++</module>
+\ No newline at end of file

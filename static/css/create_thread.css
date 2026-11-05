@@ -1,0 +1,111 @@
+.thread-create-layout {
+    max-width: 720px;
+    margin: 32px auto;
+    padding: 0 20px;
+    font-family: Arial, sans-serif;
+}
+
+.thread-create-back {
+    display: inline-block;
+    margin-bottom: 16px;
+    font-size: 14px;
+    color: #1b2954;
+    text-decoration: none;
+}
+
+.thread-create-back:hover {
+    text-decoration: underline;
+}
+
+.thread-create-card {
+    background-color: #ffffff;
+    border-radius: 12px;
+    padding: 28px 24px;
+    box-shadow: 0 0 8px rgba(0,0,0,0.08);
+}
+
+.thread-create-heading {
+    font-size: 24px;
+    margin: 0 0 8px;
+    color: #1b2954;
+}
+
+.thread-create-subtitle {
+    font-size: 14px;
+    color: #555555;
+    margin: 0 0 20px;
+}
+
+
+
+.thread-create-form .form-row {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+}
+
+
+
+.thread-create-form input[type="text"],
+.thread-create-form input[type="email"],
+.thread-create-form input[type="search"] {
+    width: 100%;
+    padding: 12px 14px;
+    font-size: 16px;
+    border-radius: 10px;
+    border: 2px solid #d3d3d3;
+    background-color: #ffffff;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+    font-family: inherit;
+    box-sizing: border-box;
+}
+
+.thread-create-form input::placeholder {
+    color: #999999;
+}
+
+.thread-create-form input:focus {
+    outline: none;
+    border-color: #f5821f;
+    box-shadow: 0 0 0 3px rgba(245, 130, 31, 0.3);
+    background-color: #fffdf8;
+}
+
+
+
+.form-actions {
+    margin-top: 8px;
+    text-align: right;
+}
+
+.btn-thread-continue {
+    background-color: #f5821f;
+    color: #ffffff;
+    border: none;
+    border-radius: 8px;
+    padding: 10px 24px;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: filter 0.15s ease, transform 0.05s ease;
+}
+
+.btn-thread-continue:hover {
+    filter: brightness(0.95);
+}
+
+.btn-thread-continue:active {
+    transform: translateY(1px);
+}
+
+/* Mobile tweaks */
+
+@media (max-width: 600px) {
+    .thread-create-card {
+        padding: 22px 18px;
+    }
+
+    .thread-create-heading {
+        font-size: 20px;
+    }
+}

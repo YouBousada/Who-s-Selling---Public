@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Inbox{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/inbox.css' %}?v=2">
+{% endblock %}
+
+{% block content %}
+<div class="inbox-layout">
+
+    <div class="inbox-header">
+        <h1 class="inbox-title">Messages</h1>
+
+        <form method="GET" action="{% url 'messaging:create-thread' %}">
+            <button class="btn-start-conversation" type="submit">
+                Start a Conversation
+            </button>
+        </form>
+    </div>
+
+    <div class="threads-list">
+    {% for item in thread_list %}
+        <a href="{% url 'messaging:thread' item.thread.pk %}" class="thread-link">
+            <div class="thread-card">
+                {% if item.unread_count > 0 %}
+                    <span class="notification-bubble">{{ item.unread_count }}</span>
+                {% endif %}
+                <div class="thread-main">
+                    <div class="thread-name">
+                        {% for profile in item.participant_profiles %}
+                            {% if profile.nickname %}
+                                {{ profile.nickname }}
+                            {% else %}
+                                {{ profile.user.username }}
+                            {% endif %}
+                            {% if not forloop.last %}, {% endif %}
+                        {% endfor %}
+                    </div>
+                    <div class="thread-meta">
+                        Click to view conversation
+                    </div>
+                </div>
+            </div>
+        </a>
+    {% empty %}
+        <p class="threads-empty">
+            You don’t have any conversations yet.
+        </p>
+    {% endfor %}
+</div>
+
+</div>
+{% endblock content %}

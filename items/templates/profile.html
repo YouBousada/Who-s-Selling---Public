@@ -1,0 +1,118 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Profile{% endblock %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'css/profile.css' %}">
+    <link rel="stylesheet" href="{% static 'css/listingcard.css' %}?v=2">
+    <link rel="stylesheet" href="{% static 'css/post.css' %}">
+    <link rel="stylesheet" href="{% static 'css/avatar.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="profile-layout">
+
+    <aside class="profile-panel">
+        <div class="profile-header">
+            <div class="profile-image-container">
+                {% if profile.image %}
+                    <img src="{{ profile.image.url }}" alt="Profile Picture" class="avatar avatar-lg">
+                {% else %}
+                    <img src ="{{'/static/svgs/defaultProfileButton.svg'}}" alt="Default Profile Picture" class="avatar-lg">
+                {% endif %}
+            </div>
+
+            <div class="profile-header-text">
+                <div class ="profile-name-container">
+                <h2 class="profile-name">{{ display_name }}</h2>
+                
+                {% if user.username == request.user.username %}
+                <form action="{% url 'login:logout' %}" method="post" style="display:inline;">
+                    {% csrf_token %}
+                    <button type="submit" class="btn-delete-post">Logout</button>
+                </form>
+                {% endif %}
+                </div>
+
+                <div class="phone-number">
+                <img src="{% static 'svgs/phone.svg' %}" class="icon">
+                {% if profile.phone_number %}
+                <p class="profile-phone">{{ profile.phone_number }}</p>
+                {% else %}
+                <p class="profile-phone">No phone number provided</p>
+                {% endif %}
+
+                </div>
+                {% if user.username == request.user.username %}
+                    <a href="{% url 'editprofile' %}" class="btn-profile-msg-user">Customize Your Profile</a>
+                {% else %}
+                    <form action="{% url 'messaging:create-thread' %}" method="post" style="display:inline;">
+                        {% csrf_token %}
+                        <input type="hidden" name="username" value="{{user.username }}">
+                        <button type="submit" class="btn-profile-msg-user">
+                            Message User
+                        </button>
+                    </form>
+                {% endif %}
+                </div>
+        </div>
+
+        <p class="profile-bio">
+            {% if profile.bio %}
+             <p><strong>Bio:</strong> {{ profile.bio }}</p>
+            {% else %}
+                {% if user.username == request.user.username %}
+                You have not provided a bio.
+                {% else %}
+                This user has not provided a bio.
+                {% endif %}
+            {% endif %}
+        </p>
+        
+        <p class="profile-bio">
+            {% if profile.sustainability_interests %}
+             <p><strong>Sustainability Interests:</strong> {{ profile.sustainability_interests }}</p>
+            {% else %}
+                {% if user.username == request.user.username %}
+                You have not provided sustainability interests.
+                {% else %}
+                This user has not provided sustainability interests.
+                {% endif %}
+            {% endif %}
+        </p>
+        
+        {% if user.username == request.user.username %}
+        <div class="delete-account-container">
+            <form id="delete-account-form" action="{% url 'login:delete_account' %}" method="post" style="display:inline;">
+                {% csrf_token %}
+                <button type="button" class="btn-delete-account" onclick="if(confirm('Are you sure you want to delete your account?')) { document.getElementById('delete-account-form').submit(); }">Delete Account</button>
+            </form>
+        </div>
+        {% endif %}
+    </aside>
+
+    <div class="profile-main">
+        <div class="listings-header">
+            {% if user.username == request.user.username %}
+                My Listings
+            {% else %}
+                {{ display_name }}'s Listings
+            {% endif %}
+        </div>
+
+        <section class="user-items-grid">
+                {% for post in posts %}
+                    {% include "reusedcomponents/listingcard.html"%}
+                {% empty %}
+                {% if user.username == request.user.username %}
+                    <p>You have no listings.</p>
+                {% else %}
+                    <p>This user has no listings.</p>
+                {% endif %}
+                {% endfor %}
+        </section>
+    </div>
+
+</div>
+{% endblock %}

@@ -1,0 +1,139 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}{{ post.title }}{% endblock %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'css/profile.css' %}">
+    <link rel="stylesheet" href="{% static 'css/post.css' %}">
+    <link rel="stylesheet" href="{% static 'css/avatar.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="post-layout">
+
+    <div class="post-image-wrapper">
+        {% if post.image %}
+            <img src="{{ post.image.url }}" alt="{{ post.title }}" class="post-image">
+        {% else %}
+            <div class="post-image-placeholder"></div>
+        {% endif %}
+    </div>
+
+    <aside class="post-detail-card">
+            {% if success_message %}
+            <div class="success-message">
+                {{ success_message }}
+            </div>
+            {% endif %}
+
+        <header class="post-header">
+            <div class="post-header-text">
+                <h1 class="post-title">{{ post.title }}</h1>
+            </div>
+
+            <div class="post-price">
+                {% if post.asking_price == 0 %}
+                    FREE
+                {% else %}
+                    ${{ post.asking_price }}
+                {% endif %}
+            </div>
+
+            {% if post.user.username == request.user.username or request.user.is_superuser %}
+            <div class = "nav-right post-owner-actions">
+            <form action="{% url 'delete_post' post.id %}" method="post" style="display:inline;">
+                {% csrf_token %}
+                <button type="submit" class="btn-delete-post">
+                    Delete Post
+                </button>
+            </form>
+            <form action="{% url 'edit_post' post.id %}" method="get" style="display:inline;">
+                <button type="submit" class="btn-edit-post">
+                    Edit Post
+                </button>
+            </form>
+            </div>
+            {% endif %}
+
+
+
+        </header>
+
+        <div>
+        <img src="{% static 'svgs/locationMarker.svg' %}" alt="view post" class="listing-arrow-icon">
+         {{post.location}}
+        </div>
+
+        <section class="post-description">
+            <p>{{ post.description }}</p>
+        </section>
+
+
+
+        <section class="post-seller">
+            <h2 class="post-section-heading">Seller information</h2>
+
+            <div class="post-seller-info">
+                <a href="{% url 'userpage' post.user.username %}" >
+                    {% if post.user.profile.image %}
+                        <img src="{{ post.user.profile.image.url }}"
+                            title="view {{ post.user.username }}'s userpage"
+                            class="hoverable avatar avatar-lg">
+                    {% else %}
+                        <img src="{% static 'svgs/defaultProfileButton.svg' %}"
+                            title="view {{ post.user.username }}'s userpage"
+                            class="hoverable avatar avatar-lg">
+                    {% endif %}
+                </a>
+
+                <div class="profile-header-text">
+                    <a href="{% url 'userpage' post.user.username %}"
+                       class="profile-name"
+                       title="View Seller Profile">
+                        {% if post.user.profile.nickname %}
+                            {{ post.user.profile.nickname }}
+                        {% else %}
+                            {{ post.user.username }}
+                        {% endif %}
+                    </a>
+
+                    <div class="phone-number">
+                        <img src="{% static 'svgs/phone.svg' %}" class="icon" alt="">
+                        <p class="profile-phone">
+                            {% if post.user.profile.phone_number %}
+                                {{ post.user.profile.phone_number }}
+                            {% else %}
+                                No phone number provided.
+                            {% endif %}
+                        </p>
+                    </div>
+
+                    {% if post.user.username != request.user.username %}
+                    <form action="{% url 'messaging:create-thread' %}" method="post" style="display:inline;">
+                        {% csrf_token %}
+                        <input type="hidden" name="username" value="{{ post.user.username }}">
+                        <button type="submit" class="btn-profile-msg-user">
+                            Message Seller
+                        </button>
+                    </form>
+                    {% endif %}
+
+                </div>
+            </div>
+        </section>
+
+        <footer class="post-meta">
+            <p class="post-categories">
+                <span class="label">Categories:</span>
+                {% if post.category %}
+                    {{ post.category.name }}
+                {% else %}
+                    Uncategorized
+                {% endif %}
+            </p>
+        </footer>
+
+    </aside>
+</div>
+{% endblock %}

@@ -1,0 +1,52 @@
+body {
+    background-color: #f0f2f5;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+
+.login-container {
+    background-color: white;
+    border-radius: 12px;
+    padding: 40px 50px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    width: 400px;
+    text-align: center;
+}
+
+.login-container h2 {
+    margin-bottom: 15px;
+    color: #1b2954; /* Dark blue from header */
+    font-size: 24px;
+    font-weight: 600;
+}
+
+.login-container p {
+    margin-bottom: 30px;
+    color: #606770;
+    font-size: 16px;
+}
+
+.google-btn {
+    background-color: #4285F4;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    padding: 12px 0;
+    cursor: pointer;
+    font-weight: 600;
+    width: 100%;
+    text-decoration: none;
+    display: block;
+    font-size: 16px;
+    transition: background-color 0.2s, box-shadow 0.2s;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.google-btn:hover {
+    background-color: #357ae8;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}

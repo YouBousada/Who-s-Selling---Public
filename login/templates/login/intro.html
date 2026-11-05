@@ -1,0 +1,128 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Welcome!{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/basicform.css' %}">
+<link rel="stylesheet" href="{% static 'css/shepherd.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="createPost-layout">
+    <h1 class="createPost-heading">Welcome! Let's set up your profile.</h1>
+    <p class="createPost-subheading">You can also take a quick tour of the site.</p>
+    <button id="start-tour-btn" class="btn-create-post">Start Tour</button>
+
+    <form class="createPost-form" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        <div class="form-row">
+            <span class="field-caption">Profile Picture</span>
+            {{ form.image.errors }}
+            {{ form.image }}
+        </div>
+
+        <div class="form-row">
+            <span class="field-caption">Nickname</span>
+            {{ form.nickname }}
+            {{ form.nickname.errors }}
+        </div>
+
+        <div class="form-row">
+            <span class="field-caption">Phone Number</span>
+            {{ form.phone_number }}
+            {{ form.phone_number.errors }}
+        </div>
+
+        <div class="form-row">
+            <span class="field-caption">Bio</span>
+            {{ form.bio }}
+            {{ form.bio.errors }}
+        </div>
+
+        
+        <div class="form-row">
+            <span class="field-caption">Sustainability Interests</span>
+            {{ form.sustainability_interests }}
+            {{ form.sustainability_interests.errors }}
+        </div>
+
+        <div class="form-actions">
+            <button type="submit" class="btn-create-post">Save and Continue</button>
+        </div>
+    </form>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'js/shepherd.min.js' %}"></script>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    const tour = new Shepherd.Tour({
+        useModalOverlay: true,
+        defaultStepOptions: {
+            classes: 'shadow-md bg-purple-dark',
+            scrollTo: true
+        }
+    });
+
+    tour.addStep({
+        title: 'Marketplace',
+        text: 'This is where you can find all the items listed for sale.',
+        attachTo: {
+            element: '.nav-icon-market',
+            on: 'bottom'
+        },
+        buttons: [
+            {
+                text: 'Next',
+                action: tour.next
+            }
+        ]
+    });
+
+    tour.addStep({
+        title: 'Messages',
+        text: 'Check your messages and conversations here.',
+        attachTo: {
+            element: '.nav-icon-chat',
+            on: 'bottom'
+        },
+        buttons: [
+            {
+                text: 'Back',
+                action: tour.back
+            },
+            {
+                text: 'Next',
+                action: tour.next
+            }
+        ]
+    });
+
+    tour.addStep({
+        title: 'Profile',
+        text: 'View and edit your profile here.',
+        attachTo: {
+            element: '.nav-profile-link',
+            on: 'bottom'
+        },
+        buttons: [
+            {
+                text: 'Back',
+                action: tour.back
+            },
+            {
+                text: 'Finish',
+                action: tour.complete
+            }
+        ]
+    });
+
+    document.getElementById('start-tour-btn').addEventListener('click', function () {
+        tour.start();
+    });
+});
+</script>
+{% endblock %}

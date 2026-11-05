@@ -1,0 +1,88 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="{% static 'css/base.css' %}?v=2">
+    <link rel="stylesheet" href="{% static 'css/avatar.css' %}">
+    <meta charset="utf-8">
+    <title>{% block title %}Campus Marketplace{% endblock %}</title>
+    {% block extra_css %}{% endblock %}
+</head>
+<body>
+
+<header class="site-header">
+<nav class="top-nav">
+
+    <div class="nav-center">
+        <a href="{% url 'create_post' %}" class="btn-create-listing">+ Create Listing</a>
+    </div>
+
+    <div class="nav-right">
+        <a href="{% url 'marketplace' %}" class="nav-btn nav-icon-market" title="View Marketplace"></a>
+        <a href="{% url 'messaging:inbox' %}" class="nav-btn nav-icon-chat" title="View Messages">
+            {% if unread_messages_count > 0 %}
+                <span class="notification-bubble">{{ unread_messages_count }}</span>
+            {% endif %}
+        </a>
+
+        {% if request.user.profile.image %}
+        <a href="{% url 'userpage' username=request.user.username %}" class="nav-btn nav-profile-link">
+            <img src="{{ request.user.profile.image.url }}" title="View Your Profile" class="avatar avatar-sm">
+        </a>
+        {% else %}
+        <a href="{% url 'userpage' username=request.user.username %}" class="nav-btn nav-profile-link">
+            <img src="{% static 'svgs/defaultProfileButton.svg' %}" class="avatar avatar-sm" title= "View Your Profile">
+        </a>
+        {% endif %}
+
+    </div>
+
+</nav>
+</header>
+
+{% if messages %}
+  <div class="toast-container">
+    {% for message in messages %}
+      <div class="toast toast-{{ message.tags }}">{{ message }}</div>
+    {% endfor %}
+  </div>
+{% endif %}
+
+<main class="page-wrapper">
+    {% block content %}{% endblock %}
+</main>
+
+{% block extra_js %}
+<script src="{% static 'admin/js/vendor/jquery/jquery.min.js' %}"></script>
+<script>
+$(function () {
+    function updateUnreadCount() {
+        $.ajax({
+            url: "{% url 'messaging:unread-count' %}",
+            success: function (data) {
+                var bubble = $('.notification-bubble');
+                if (data.unread_messages_count > 0) {
+                    if (bubble.length) {
+                        bubble.text(data.unread_messages_count);
+                    } else {
+                        var newBubble = '<span class="notification-bubble">' + data.unread_messages_count + '</span>';
+                        $('.nav-icon-chat').append(newBubble);
+                    }
+                } else {
+                    bubble.remove();
+                }
+            }
+        });
+    }
+
+    // Update on page load
+    updateUnreadCount();
+
+    // Poll every 2 seconds
+    setInterval(updateUnreadCount, 2000);
+});
+</script>
+{% endblock %}
+
+</body>
+</html>

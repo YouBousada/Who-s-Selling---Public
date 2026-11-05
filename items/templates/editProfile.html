@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Edit Profile{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/basicform.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="createPost-layout">
+    <h1 class="createPost-heading">Edit Profile Information</h1>
+
+    <form class="createPost-form" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        <div class="form-row">
+            <span class="field-caption">Profile Picture</span>
+            {{ form.image.errors }}
+            {{ form.image }}          {# File input #}
+        </div>
+
+        <div class="form-row">
+            <span class="field-caption">Nickname</span>
+            {{ form.nickname }}
+            {{ form.nickname.errors }}
+        </div>
+
+        <div class="form-row">
+            <span class="field-caption">Phone Number</span>
+            {{ form.phone_number }}
+            {{ form.phone_number.errors }}
+        </div>
+
+        <div class="form-row">
+            <span class="field-caption">Bio</span>
+            {{ form.bio }}
+            {{ form.bio.errors }}
+        </div>
+
+        
+        <div class="form-row">
+            <span class="field-caption">Sustainability Interests</span>
+            {{ form.sustainability_interests }}
+            {{ form.sustainability_interests.errors }}
+        </div>
+
+        <div class="form-actions">
+            <button type="submit" class="btn-create-post">Save Changes</button>
+        </div>
+    </form>
+</div>
+{% endblock %}

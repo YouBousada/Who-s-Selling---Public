@@ -1,0 +1,119 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Conversation{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/inbox.css' %}">
+<link rel="stylesheet" href="{% static 'css/thread.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<div class="thread-layout">
+
+    <div class="thread-header">
+    {% if participant_profiles|length > 2 %}
+        <div class="participant-list">
+            {% for profile in participant_profiles %}
+                {% if profile.user != request.user %}
+                    <a href="{% url 'userpage' profile.user.username %}" class="participant-row">
+                        {% if profile.image %}
+                            <img src="{{ profile.image.url }}" class="avatar avatar-sm" title="{{ profile.user.username }}">
+                        {% else %}
+                            <img src="{% static 'svgs/defaultProfileButton.svg' %}" class="avatar avatar-sm" title="{{ profile.user.username }}">
+                        {% endif %}
+                        <span class="participant-name">
+                            {% if profile.nickname %}
+                                {{ profile.nickname }}
+                            {% else %}
+                                {{ profile.user.username }}
+                            {% endif %}
+                        </span>
+                    </a>
+                {% endif %}
+            {% endfor %}
+        </div>
+    {% else %}
+        {% for profile in participant_profiles %}
+            {% if profile.user != request.user %}
+                <a href="{% url 'userpage' profile.user.username %}" class="thread-header-link">
+                    <div class="thread-avatar-large">
+                        <span class="thread-avatar-initial">
+                            {% if profile.image %}
+                                <img src="{{ profile.image.url }}"
+                                    class="hoverable avatar avatar-md"
+                                    title="{{ profile.user.username }}">
+                            {% else %}
+                                <img src="{% static 'svgs/defaultProfileButton.svg' %}"
+                                    class="hoverable avatar avatar-md"
+                                    title="{{ profile.user.username }}">
+                            {% endif %}
+                        </span>
+                    </div>
+                    <h2 class="thread-title">
+                        {% if profile.nickname %}
+                            {{ profile.nickname }}
+                        {% else %}
+                            {{ profile.user.username }}
+                        {% endif %}
+                    </h2>
+                </a>
+            {% endif %}
+        {% endfor %}
+    {% endif %}
+</div>
+
+    <div class="messages-box" id="messagesBox">
+
+        {% if message_list.all.count == 0 %}
+            <p class="empty-thread-text">No messages yet.</p>
+        {% endif %}
+
+        {% for message in message_list %}
+            <div class="message-row 
+                {% if message.sender_user == request.user %}
+                    message-sent
+                {% else %}
+                    message-received
+                {% endif %}
+            ">
+
+                <div class="message-bubble">
+                    <p>{{ message.body }}</p>
+                </div>
+
+                <span class="message-meta">
+                    {% if message.sender_user.profile.nickname %}
+                        {{ message.sender_user.profile.nickname }}
+                    {% else %}
+                        {{ message.sender_user.username }}
+                    {% endif %}
+                </span>
+
+            </div>
+        {% endfor %}
+
+    </div>
+
+    <form method="POST" action="{% url 'messaging:create-message' thread.pk %}" class="send-form">
+        {% csrf_token %}
+        
+        <div class="send-form-row">
+            {{ form.message }}
+            <button type="submit" class="btn-send-message">
+                Send
+            </button>
+        </div>
+    </form>
+
+</div>
+
+<script>
+    window.onload = function () {
+        const box = document.getElementById('messagesBox');
+        if (box) box.scrollTop = box.scrollHeight;
+    }
+</script>
+
+{% endblock %}

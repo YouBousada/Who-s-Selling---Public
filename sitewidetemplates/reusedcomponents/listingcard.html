@@ -1,0 +1,53 @@
+{% load static %}
+<a href="{% url 'view_post' post.id %}" class="listing-card-link">
+    <div class="listing-card">
+        <div class="listing-image-wrapper">
+            {% if post.image %}
+                <img src="{{ post.image.url }}"
+                     alt="{{ post.title }}"
+                     class="listing-image">
+            {% else %}
+                <div class="listing-image-placeholder"></div>
+            {% endif %}
+        </div>
+
+        <div class="listing-info">
+            <div class="listing-price-row">
+                <span class="listing-price">
+                    {% if post.asking_price == 0 %}
+                        FREE
+                    {% else %}
+                    ${{ post.asking_price }}
+                    {% endif %}
+
+                <div class="listing-title">
+                    {{ post.title }}
+                </div>
+
+                </span>
+
+
+                    <div class="nav-right">
+                    {% if post.user.profile.image %}
+                        <img src="{{ post.user.profile.image.url }}"
+                            class="hoverable avatar avatar-sm"
+                            title="{{ post.user.username }}">
+                    {% else %}
+                        <img src="{% static 'svgs/defaultProfileButton.svg' %}"
+                            class="hoverable avatar avatar-sm"
+                            title="{{ post.user.username }}">
+                    {% endif %}
+                    </div>
+
+                
+            </div>
+
+
+            <div class="nav-right">
+            <img src="{% static 'svgs/locationMarker.svg' %}" alt="view post" class="listing-arrow-icon">
+            {{post.location}}
+            </div>
+
+        </div>
+    </div>
+</a>

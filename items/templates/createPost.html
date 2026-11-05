@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Create Post{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/basicform.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="createPost-layout">
+    <h1 class="createPost-heading">Create a New Listing</h1>
+
+    {% if success_message %}
+      <div class="success-message">
+        {{ success_message }}
+      </div>
+    {% endif %}
+
+    <form class="createPost-form" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        <div class="form-row">
+            <span class="field-caption">Title</span>
+            {{ form.title.errors }}
+            {{ form.title }}          {# Title #}
+        </div>
+
+        <div class="form-row">
+            <span class="field-caption">Description</span>
+            {{ form.description.errors }}
+            {{ form.description }}    {# Description #}
+        </div>
+
+        <div class="form-row">
+            <span class="field-caption">Location</span>
+            {{ form.location.errors }}
+            {{ form.location }}       {# Location #}
+        </div>
+
+        <div class="form-row form-row-inline">
+            <span class="field-caption">Asking Price</span>
+            {{ form.asking_price.errors }}
+            {{ form.asking_price }}   {# Asking price field name from PostForm #}
+        </div>
+
+        <div class="form-row">
+            <span class="field-caption">Image</span>
+            {{ form.image.errors }}
+            {{ form.image }}          {# File input #}
+        </div>
+
+        <div class="form-row">
+            <span class="field-caption">Category</span>
+            {{ form.category.errors }}
+            {{ form.category }}       {# Category select populated from DB #}
+        </div>
+
+        <div class="form-actions">
+            <button type="submit" class="btn-create-post">Create Post</button>
+        </div>
+    </form>
+</div>
+{% endblock %}

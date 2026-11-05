@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Marketplace{% endblock %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'css/marketplace.css' %}">
+    <link rel="stylesheet" href="{% static 'css/listingcard.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="market-layout">
+
+<aside class="filter-panel">
+    <h2>Filter items</h2>
+
+    <form method="GET" class="filter-form">
+
+        <div class="filter-group">
+            <label for="keyword">Keyword search</label>
+            <input type="text" id="keyword" name="keyword" class="filter-input"
+                   placeholder="Search..." value="{{ keyword }}">
+        </div>
+
+        <div class="filter-group">
+            <label for="category">Category</label>
+            <select id="category" name="category" class="filter-select">
+                <option value="">All categories</option>
+                {% for cat in categories %}
+                    <option value="{{ cat.name }}"
+                        {% if category  == cat.name %}selected{% endif %}>
+                        {{ cat.name }}
+                    </option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div class="filter-group">
+            <label for="price">Max price</label>
+            <input type="number"
+                id="price"
+                name="price"
+                class="filter-input"
+                placeholder="e.g. 5.00"
+                step="0.01"
+                min="0"
+                value="{{ price }}">
+        </div>
+
+        <button type="submit" class="btn-filter-apply">Apply filters</button>
+    </form>
+</aside>
+
+<section class="items-grid">
+    {% for post in posts %}
+        {% include "reusedcomponents/listingcard.html" with post=post %}
+    {% empty %}
+        <p>No items found matching your filters.</p>
+    {% endfor %}
+    <script>
+        setTimeout(() => {
+            document.querySelectorAll('.toast').forEach(t => t.remove());
+        }, 3000);
+    </script>
+</section>
+
+</div>
+{% endblock %}
